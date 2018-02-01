@@ -94,3 +94,43 @@ TEST_CASE("Adler32") {
     REQUIRE(adler(vec) == expected);
   }
 }
+
+TEST_CASE("Fletcher16") {
+  Fletcher16 fletcher;
+
+  SECTION("string") {
+    const std::string str {"abcdef"};
+    const std::string expectedHex {"2057"};
+    const uint16_t expected {8279};
+    REQUIRE(fletcher.getHex(str) == expectedHex);
+    REQUIRE(fletcher(str) == expected);
+  }
+
+  SECTION("bytes") {
+    const std::vector<uint8_t> vec {1, 2, 3, 4, 42, 81, 34, 12, 76, 34, 23};
+    const std::string expectedHex {"8439"};
+    const uint16_t expected {33849};
+    REQUIRE(fletcher.getHex(vec) == expectedHex);
+    REQUIRE(fletcher(vec) == expected);
+  }
+}
+
+TEST_CASE("Fletcher32") {
+  Fletcher32 fletcher;
+
+  SECTION("string") {
+    const std::string str {"abcdef"};
+    const std::string expectedHex {"8180255"};
+    const uint32_t expected {135791189};
+    REQUIRE(fletcher.getHex(str) == expectedHex);
+    REQUIRE(fletcher(str) == expected);
+  }
+
+  SECTION("bytes") {
+    const std::vector<uint8_t> vec {1, 2, 3, 4, 42, 81, 34, 12, 76, 34, 23};
+    const std::string expectedHex {"57f0138"};
+    const uint32_t expected {92209464};
+    REQUIRE(fletcher.getHex(vec) == expectedHex);
+    REQUIRE(fletcher(vec) == expected);
+  }
+}

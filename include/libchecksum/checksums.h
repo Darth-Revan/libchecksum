@@ -134,7 +134,22 @@ class Adler32 final : public ChecksumAlgorithm<uint32_t> {
 public:
   uint32_t operator()(const std::vector<uint8_t>& input) const override;
   uint32_t operator()(const std::string& input) const override;
+};
 
+/// Class that implements the Fletcher16 checksum algorithm
+class Fletcher16 final : public ChecksumAlgorithm<uint16_t> {
+
+public:
+  uint16_t operator()(const std::vector<uint8_t>& input) const override;
+  uint16_t operator()(const std::string& input) const override;
+};
+
+/// Class that implements the Fletcher32 checksum algorithm
+class Fletcher32 final : public ChecksumAlgorithm<uint32_t> {
+
+public:
+  uint32_t operator()(const std::vector<uint8_t>& input) const override;
+  uint32_t operator()(const std::string& input) const override;
 };
 
 } // namespace libchecksum
