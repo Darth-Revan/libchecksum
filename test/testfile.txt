@@ -1,0 +1,3 @@
+This is a simple text file to test calculations on files.
+
+Let's see if this works, folks! Ǣ ǅ

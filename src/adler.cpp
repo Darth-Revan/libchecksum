@@ -25,17 +25,36 @@
  * @date        2018
  * @copyright   MIT License
  * @bug         No known bugs
- * @brief       Main header file of \p libchecksum
+ * @brief       Implements the Adler32 checksum algorithm
  *
- * This is the main source file of \p libchecksum.
+ * This source file implements the Adler32 checksum algorithm declared in the
+ * main header.
  */
 
 #include <libchecksum/checksums.h>
+#include "checksum_impl.h"
 
 namespace libchecksum {
 
-const std::string getVersionString() {
-  return std::string{CHECKSUM_VERSION};
+uint32_t Adler32::operator()(const std::string& input) const {
+  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
 }
 
-} // namespace libchecksum
+std::string Adler32::getHex(const std::string& input) const {
+  return this->getHex(std::vector<uint8_t> {input.begin(), input.end()});
+}
+
+std::string Adler32::getHex(const std::vector<uint8_t>& input) const {
+  return util::toHexString(this->operator()(input));
+}
+
+uint32_t Adler32::operator()(const std::vector<uint8_t>& input) const {
+  uint32_t s1 {1}, s2 {0};
+  for (const auto& element : input) {
+    s1 = (s1 + element) % 65521;
+    s2 = (s2 + s1) % 65521;
+  }
+  return (s2 << 16) | s1;
+}
+
+}

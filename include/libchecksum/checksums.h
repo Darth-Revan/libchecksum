@@ -35,12 +35,43 @@
 #define LIBCHECKSUM_CHECKSUMS_H
 
 #include <string>
+#include <vector>
 
 namespace libchecksum {
 
 /// \brief Returns the current version of the library as string.
 /// \return Library version as string
-const std::string getVersionString();
+inline const std::string getVersionString() {
+  return std::string{CHECKSUM_VERSION};
+}
+
+/// Class that implements the Adler32 checksum algorithm
+class Adler32 final {
+
+public:
+  /// \brief Calculates the checksum of a byte vector.
+  /// \param input Byte vector to get the checksum of
+  /// \return Checksum of the byte vector
+  uint32_t operator()(const std::vector<uint8_t>& input) const;
+
+  /// \brief Calculates the checksum of a string.
+  /// \param input String to get the checksum of
+  /// \return Checksum of the string
+  uint32_t operator()(const std::string& input) const;
+
+  /// \brief Calculates the checksum of a byte vector and returns it in
+  /// hexadecimal format.
+  /// \param input Byte vector to get the checksum of
+  /// \return Checksum of the byte vector as hexadecimal string
+  std::string getHex(const std::vector<uint8_t>& input) const;
+
+  /// \brief Calculates the checksum of a string and returns it in hexadecimal
+  /// format.
+  /// \param input String to get the checksum of
+  /// \return Checksum of the string as hexadecimal string
+  std::string getHex(const std::string& input) const;
+
+};
 
 } // namespace libchecksum
 

@@ -76,3 +76,23 @@ TEST_CASE("convertIntegerVectorToHexString") {
   Values.push_back(static_cast<unsigned int>(-1u));
   REQUIRE(util::toHexString(Values) == "0000008000000002ffffffff");
 }
+
+TEST_CASE("Adler32") {
+  Adler32 adler;
+
+  SECTION("string") {
+    const std::string str {"Test String Adler32"};
+    const std::string expectedHex {"451d06a5"};
+    const uint32_t expected {1159530149};
+    REQUIRE(adler.getHex(str) == expectedHex);
+    REQUIRE(adler(str) == expected);
+  }
+
+  SECTION("bytes") {
+    const std::vector<uint8_t> vec {1, 2, 3, 4, 42, 81, 34, 12, 76, 34, 23};
+    const std::string expectedHex {"58a0139"};
+    const uint32_t expected {92930361};
+    REQUIRE(adler.getHex(vec) == expectedHex);
+    REQUIRE(adler(vec) == expected);
+  }
+}
