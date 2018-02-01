@@ -24,7 +24,6 @@
  * @author      Kevin Kirchner
  * @date        2018
  * @copyright   MIT License
- * @bug         No known bugs
  * @brief       Implements the Adler32 checksum algorithm
  *
  * This source file implements the Adler32 checksum algorithm declared in the
@@ -32,20 +31,11 @@
  */
 
 #include <libchecksum/checksums.h>
-#include "checksum_impl.h"
 
 namespace libchecksum {
 
 uint32_t Adler32::operator()(const std::string& input) const {
   return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
-}
-
-std::string Adler32::getHex(const std::string& input) const {
-  return this->getHex(std::vector<uint8_t> {input.begin(), input.end()});
-}
-
-std::string Adler32::getHex(const std::vector<uint8_t>& input) const {
-  return util::toHexString(this->operator()(input));
 }
 
 uint32_t Adler32::operator()(const std::vector<uint8_t>& input) const {

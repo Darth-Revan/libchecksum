@@ -24,7 +24,6 @@
  * @author      Kevin Kirchner
  * @date        2018
  * @copyright   MIT License
- * @bug         No known bugs
  * @brief       Main source file for tests of \p libchecksum
  *
  * Main source file for the tests of \p libchecksum.
@@ -33,7 +32,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include <libchecksum/checksums.h>
-#include "checksum_impl.h"
 
 using namespace libchecksum;
 
