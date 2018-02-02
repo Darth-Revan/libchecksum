@@ -84,6 +84,14 @@ public:
   uint32_t operator()(const std::string& input) const override;
 };
 
+/// Class that implements the 16 bit long BSD sum
+class BSDSum final : public ChecksumAlgorithm<uint16_t> {
+
+public:
+  uint16_t operator()(const std::vector<uint8_t>& input) const override;
+  uint16_t operator()(const std::string& input) const override;
+};
+
 
 } // namespace libchecksum
 

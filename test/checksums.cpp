@@ -59,7 +59,7 @@ TEST_CASE("Adler32") {
   }
 
   SECTION("bytes") {
-    const std::vector<uint8_t> vec {1, 2, 3, 4, 42, 81, 34, 12, 76, 34, 23};  // 42A51220C4C2217
+    const std::vector<uint8_t> vec {1, 2, 3, 4, 42, 81, 34, 12, 76, 34, 23};  // 010203042A51220C4C2217
     const std::string expectedHex {"58a0139"};
     const uint32_t expected {92930361};
     REQUIRE(adler.getHex(vec) == expectedHex);
@@ -235,6 +235,38 @@ TEST_CASE("Sum32") {
     REQUIRE(sum(TestVector[5]) == 1737);
     REQUIRE(sum(TestVector[6]) == 1327);
     REQUIRE(sum(TestVector[7]) == 153);
+    REQUIRE(sum(TestVector[8]) == 0);
+  }
+}
+
+TEST_CASE("BSDSum") {
+  BSDSum sum;
+
+  SECTION("string") {
+    const std::string str {"abcdef"};
+    const std::string expectedHex {"8c7"};
+    const uint16_t expected {2247};
+    REQUIRE(sum.getHex(str) == expectedHex);
+    REQUIRE(sum(str) == expected);
+  }
+
+  SECTION("bytes") {
+    const std::vector<uint8_t> vec {1, 2, 3, 4, 42, 81, 34, 12, 76, 34, 23};
+    const std::string expectedHex {"dc81"};
+    const uint16_t expected {56449};
+    REQUIRE(sum.getHex(vec) == expectedHex);
+    REQUIRE(sum(vec) == expected);
+  }
+
+  SECTION("testvector") {
+    REQUIRE(sum(TestVector[0]) == 11656);
+    REQUIRE(sum(TestVector[1]) == 2428);
+    REQUIRE(sum(TestVector[2]) == 1141);
+    REQUIRE(sum(TestVector[3]) == 20729);
+    REQUIRE(sum(TestVector[4]) == 9117);
+    REQUIRE(sum(TestVector[5]) == 49617);
+    REQUIRE(sum(TestVector[6]) == 2740);
+    REQUIRE(sum(TestVector[7]) == 32875);
     REQUIRE(sum(TestVector[8]) == 0);
   }
 }

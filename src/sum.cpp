@@ -70,4 +70,18 @@ uint32_t Sum32::operator()(const std::vector<uint8_t>& input) const {
   return checksum;
 }
 
+uint16_t BSDSum::operator()(const std::string& input) const {
+  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
+}
+
+uint16_t BSDSum::operator()(const std::vector<uint8_t>& input) const {
+  uint16_t checksum {0};
+  for (const auto& byte : input) {
+    checksum = static_cast<uint16_t>((checksum >> 1) + ((checksum & 1) << 15));
+    checksum += byte;
+    checksum &= 0xFFFF;
+  }
+  return checksum;
+}
+
 }
