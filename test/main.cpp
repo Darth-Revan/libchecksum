@@ -31,7 +31,7 @@
 
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include <libchecksum/checksums.h>
+#include <libchecksum/common.h>
 
 using namespace libchecksum;
 

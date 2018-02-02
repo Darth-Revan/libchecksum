@@ -24,109 +24,17 @@
  * @author      Kevin Kirchner
  * @date        2018
  * @copyright   MIT License
- * @brief       Main header file of \p libchecksum
+ * @brief       Header file of \p libchecksum declaring checksum algorithms
  *
- * This is the main header file declaring the library interface of
- * \p libchecksum.
+ * This header file declares the checksum algorithms of \p libchecksum.
  */
 
 #ifndef LIBCHECKSUM_CHECKSUMS_H
 #define LIBCHECKSUM_CHECKSUMS_H
 
-#include <string>
-#include <vector>
-#include <sstream>
-#include <iomanip>
+#include <libchecksum/common.h>
 
 namespace libchecksum {
-
-namespace util {
-
-/// \brief Template function to convert an integral value to a hexadecimal
-/// string.
-///
-/// Does only compile for unsigned integral values (e.g. unsigned int,
-/// uint8_t, unsigned char, ...). This function does not pad the hexadecimal
-/// string with zeroes.
-/// \tparam INTTYPE Type of the input value
-/// \param value Value to convert to hex
-/// \return The input value as hexadecimal string
-template <typename INTTYPE>
-std::string toHexString(INTTYPE value) {
-  static_assert(std::is_integral<INTTYPE>::value, "This template can only be used for integer types!");
-  static_assert(std::is_unsigned<INTTYPE>::value, "This template can only be used for unsigned values!");
-
-  std::stringstream stream {""};
-  stream << std::hex << +value;
-  return stream.str();
-}
-
-/// \brief Template function to convert a vector of integral values to a
-/// hexadecimal string.
-///
-/// Does only compile for vectors of unsigned integral values (e.g. unsigned int,
-/// uint8_t, unsigned char, ...). The function converts each value separately,
-/// pads them to twice their byte size (e.g. uint8_t will be padded to 2
-/// characters) and simply concatenates them.
-/// \tparam INTTYPE Type of the input values
-/// \param values Vector of values to convert to hex
-/// \return The input values as hexadecimal string
-template<typename INTTYPE>
-std::string toHexString(const std::vector<INTTYPE>& values) {
-  static_assert(std::is_integral<INTTYPE>::value, "This template can only be used for vectors of integer types!");
-  static_assert(std::is_unsigned<INTTYPE>::value, "This template can only be used for vectors of unsigned values!");
-
-  std::stringstream stream {""};
-  for (const INTTYPE& value : values) {
-    stream << std::hex << std::setfill('0') << std::setw(sizeof(INTTYPE) * 2) << +value;
-  }
-  return stream.str();
-}
-
-} // namespace util
-
-/// \brief Returns the current version of the library as string.
-/// \return Library version as string
-inline const std::string getVersionString() {
-  return std::string{CHECKSUM_VERSION};
-}
-
-/// Abstract class for checksum algorithms
-template<typename T>
-class ChecksumAlgorithm {
-  static_assert(std::is_integral<T>::value, "This class can only be used for integral types!");
-
-public:
-  /// \brief Default virtual destructor
-  virtual ~ChecksumAlgorithm() = default;
-
-  /// \brief Calculates the checksum of a byte vector.
-  /// \param input Byte vector to get the checksum of
-  /// \return Checksum of the byte vector
-  virtual T operator()(const std::vector<uint8_t>& input) const = 0;
-
-  /// \brief Calculates the checksum of a string.
-  /// \param input String to get the checksum of
-  /// \return Checksum of the string
-  virtual T operator()(const std::string& input) const = 0;
-
-  /// \brief Calculates the checksum of a byte vector and returns it in
-  /// hexadecimal format.
-  /// \param input Byte vector to get the checksum of
-  /// \return Checksum of the byte vector as hexadecimal string
-  virtual const std::string getHex(const std::vector<uint8_t>& input) const final {
-    return util::toHexString((*this) (input));
-  }
-
-  /// \brief Calculates the checksum of a string and returns it in hexadecimal
-  /// format.
-  /// \param input String to get the checksum of
-  /// \return Checksum of the string as hexadecimal string
-  virtual const std::string getHex(const std::string& input) const final {
-    return util::toHexString((*this) (input));
-  }
-
-};
 
 /// Class that implements the Adler32 checksum algorithm
 class Adler32 final : public ChecksumAlgorithm<uint32_t> {
