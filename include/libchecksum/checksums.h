@@ -152,6 +152,31 @@ public:
   uint32_t operator()(const std::string& input) const override;
 };
 
+/// Class that implements a 8 bit checksum
+class Sum8 final : public ChecksumAlgorithm<uint8_t> {
+
+public:
+  uint8_t operator()(const std::vector<uint8_t>& input) const override;
+  uint8_t operator()(const std::string& input) const override;
+};
+
+/// Class that implements a 16 bit checksum
+class Sum16 final : public ChecksumAlgorithm<uint16_t> {
+
+public:
+  uint16_t operator()(const std::vector<uint8_t>& input) const override;
+  uint16_t operator()(const std::string& input) const override;
+};
+
+/// Class that implements a 32 bit checksum
+class Sum32 final : public ChecksumAlgorithm<uint32_t> {
+
+public:
+  uint32_t operator()(const std::vector<uint8_t>& input) const override;
+  uint32_t operator()(const std::string& input) const override;
+};
+
+
 } // namespace libchecksum
 
 #endif //LIBCHECKSUM_CHECKSUMS_H
