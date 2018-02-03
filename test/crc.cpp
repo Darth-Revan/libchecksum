@@ -84,3 +84,39 @@ TEST_CASE("Cksum") {
   }
 
 }
+
+TEST_CASE("CRC32") {
+  CRC32 crc;
+
+  SECTION("generator") {
+    REQUIRE(crc.getGeneratorPolynomial() == 0xedb88320);
+  }
+
+  SECTION("string") {
+    const std::string str {"abcdef"};
+    const std::string expectedHex {"4b8e39ef"};
+    const uint32_t expected {1267612143};
+    REQUIRE(crc.getHex(str) == expectedHex);
+    REQUIRE(crc(str) == expected);
+  }
+
+  SECTION("bytes") {
+    const std::vector<uint8_t> vec {1, 2, 3, 4, 42, 81, 34, 12, 76, 34, 23};  // 010203042A51220C4C2217
+    const std::string expectedHex {"13124531"};
+    const uint32_t expected {319964465};
+    REQUIRE(crc.getHex(vec) == expectedHex);
+    REQUIRE(crc(vec) == expected);
+  }
+
+  SECTION("testvector") {
+    REQUIRE(crc(TestVector[0]) == 558027374);
+    REQUIRE(crc(TestVector[1]) == 3451413783);
+    REQUIRE(crc(TestVector[2]) == 2753879460);
+    REQUIRE(crc(TestVector[3]) == 1388732589);
+    REQUIRE(crc(TestVector[4]) == 1520015303);
+    REQUIRE(crc(TestVector[5]) == 1215597986);
+    REQUIRE(crc(TestVector[6]) == 3899229996);
+    REQUIRE(crc(TestVector[7]) == 3656879051);
+    REQUIRE(crc(TestVector[8]) == 0);
+  }
+}

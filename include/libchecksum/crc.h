@@ -29,7 +29,6 @@
  * This header file declares the CRC algorithms of \p libchecksum.
  */
 
-
 #ifndef CHECKSUM_CRC_H
 #define CHECKSUM_CRC_H
 
@@ -47,6 +46,19 @@ public:
   uint32_t getGeneratorPolynomial() const override {
     return 0x04C11DB7;
   }
+};
+
+/// Class that implements the CRC-32 algorithm used in Ethernet, etc.
+class CRC32 final : public CyclicRedundancyChecksum<uint32_t> {
+
+public:
+  using ChecksumAlgorithm::operator();
+  uint32_t operator()(const std::vector<uint8_t>& input) const override;
+
+  uint32_t getGeneratorPolynomial() const override {
+    return 0xedb88320;
+  }
+
 };
 
 }
