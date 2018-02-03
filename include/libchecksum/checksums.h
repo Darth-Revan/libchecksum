@@ -108,6 +108,17 @@ public:
   uint32_t operator()(const std::vector<uint8_t>& input) const override;
 };
 
+/// Class that implements the CRC checksum from the GNU coreutil cksum
+class Cksum final : public CyclicRedundancyChecksum<uint32_t> {
+
+public:
+  using ChecksumAlgorithm::operator();
+  uint32_t operator()(const std::vector<uint8_t>& input) const override;
+
+  uint32_t getGeneratorPolynomial() const override {
+    return 0x04C11DB7;
+  }
+};
 
 } // namespace libchecksum
 

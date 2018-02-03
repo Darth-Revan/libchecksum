@@ -135,6 +135,24 @@ public:
 
 };
 
+/// Abstract template class for CRC algorithms
+template <typename U>
+class CyclicRedundancyChecksum : public ChecksumAlgorithm<U> {
+  static_assert(std::is_integral<U>::value, "This class can only be used for integral types!");
+
+public:
+  virtual ~CyclicRedundancyChecksum() = default;
+
+  /// \brief Calculates the checksum of a byte vector.
+  /// \param input Byte vector to get the checksum of
+  /// \return Checksum of the byte vector
+  virtual U operator()(const std::vector<uint8_t>& input) const = 0;
+
+  /// \brief Function returning the generator polynomial of the underlying CRC.
+  /// \return Generator polynomial of the underlying CRC algorithm
+  virtual U getGeneratorPolynomial() const = 0;
+};
+
 }
 
 #endif //CHECKSUM_COMMON_H
