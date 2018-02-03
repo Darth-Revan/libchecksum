@@ -34,10 +34,6 @@
 
 namespace libchecksum {
 
-uint32_t Adler32::operator()(const std::string& input) const {
-  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
-}
-
 uint32_t Adler32::operator()(const std::vector<uint8_t>& input) const {
   uint32_t s1 {1}, s2 {0};
   for (const auto& element : input) {

@@ -113,13 +113,15 @@ public:
   /// \brief Calculates the checksum of a string.
   /// \param input String to get the checksum of
   /// \return Checksum of the string
-  virtual T operator()(const std::string& input) const = 0;
+  T operator()(const std::string& input) const {
+    return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
+  }
 
   /// \brief Calculates the checksum of a byte vector and returns it in
   /// hexadecimal format.
   /// \param input Byte vector to get the checksum of
   /// \return Checksum of the byte vector as hexadecimal string
-  virtual const std::string getHex(const std::vector<uint8_t>& input) const final {
+  const std::string getHex(const std::vector<uint8_t>& input) const {
     return util::toHexString((*this)(input));
   }
 
@@ -127,7 +129,7 @@ public:
   /// format.
   /// \param input String to get the checksum of
   /// \return Checksum of the string as hexadecimal string
-  virtual const std::string getHex(const std::string& input) const final {
+  const std::string getHex(const std::string& input) const {
     return util::toHexString((*this)(input));
   }
 

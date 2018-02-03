@@ -34,10 +34,6 @@
 
 namespace libchecksum {
 
-uint16_t Fletcher16::operator()(const std::string& input) const {
-  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
-}
-
 uint16_t Fletcher16::operator()(const std::vector<uint8_t>& input) const {
   uint16_t s1 {0}, s2 {0};
   for (const auto& element : input) {
@@ -45,10 +41,6 @@ uint16_t Fletcher16::operator()(const std::vector<uint8_t>& input) const {
     s2 = static_cast<uint16_t>((s2 + s1) % 255);
   }
   return static_cast<uint16_t>((s2 << 8) | s1);
-}
-
-uint32_t Fletcher32::operator()(const std::string& input) const {
-  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
 }
 
 uint32_t Fletcher32::operator()(const std::vector<uint8_t>& input) const {

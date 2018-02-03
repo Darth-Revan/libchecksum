@@ -34,20 +34,12 @@
 
 namespace libchecksum {
 
-uint8_t Sum8::operator()(const std::string& input) const {
-  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
-}
-
 uint8_t Sum8::operator()(const std::vector<uint8_t>& input) const {
   uint8_t checksum {0};
   for (const auto& byte : input) {
     checksum = static_cast<uint8_t>((checksum + byte) & 0xFF);
   }
   return checksum;
-}
-
-uint16_t Sum16::operator()(const std::string& input) const {
-  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
 }
 
 uint16_t Sum16::operator()(const std::vector<uint8_t>& input) const {
@@ -58,20 +50,12 @@ uint16_t Sum16::operator()(const std::vector<uint8_t>& input) const {
   return checksum;
 }
 
-uint32_t Sum32::operator()(const std::string& input) const {
-  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
-}
-
 uint32_t Sum32::operator()(const std::vector<uint8_t>& input) const {
   uint32_t checksum {0};
   for (const auto& byte : input) {
     checksum = (checksum + byte) & 0xFFFFFF;
   }
   return checksum;
-}
-
-uint16_t BSDSum::operator()(const std::string& input) const {
-  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
 }
 
 uint16_t BSDSum::operator()(const std::vector<uint8_t>& input) const {
@@ -82,10 +66,6 @@ uint16_t BSDSum::operator()(const std::vector<uint8_t>& input) const {
     checksum &= 0xFFFF;
   }
   return checksum;
-}
-
-uint8_t XOR8::operator()(const std::string& input) const {
-  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
 }
 
 uint8_t XOR8::operator()(const std::vector<uint8_t>& input) const {

@@ -40,64 +40,64 @@ namespace libchecksum {
 class Adler32 final : public ChecksumAlgorithm<uint32_t> {
 
 public:
+  using ChecksumAlgorithm::operator();
   uint32_t operator()(const std::vector<uint8_t>& input) const override;
-  uint32_t operator()(const std::string& input) const override;
 };
 
 /// Class that implements the Fletcher16 checksum algorithm
 class Fletcher16 final : public ChecksumAlgorithm<uint16_t> {
 
 public:
+  using ChecksumAlgorithm::operator();
   uint16_t operator()(const std::vector<uint8_t>& input) const override;
-  uint16_t operator()(const std::string& input) const override;
 };
 
 /// Class that implements the Fletcher32 checksum algorithm
 class Fletcher32 final : public ChecksumAlgorithm<uint32_t> {
 
 public:
+  using ChecksumAlgorithm::operator();
   uint32_t operator()(const std::vector<uint8_t>& input) const override;
-  uint32_t operator()(const std::string& input) const override;
 };
 
 /// Class that implements a 8 bit checksum
 class Sum8 final : public ChecksumAlgorithm<uint8_t> {
 
 public:
+  using ChecksumAlgorithm::operator();
   uint8_t operator()(const std::vector<uint8_t>& input) const override;
-  uint8_t operator()(const std::string& input) const override;
 };
 
 /// Class that implements a 16 bit checksum
 class Sum16 final : public ChecksumAlgorithm<uint16_t> {
 
 public:
+  using ChecksumAlgorithm::operator();
   uint16_t operator()(const std::vector<uint8_t>& input) const override;
-  uint16_t operator()(const std::string& input) const override;
 };
 
 /// Class that implements a 32 bit checksum
 class Sum32 final : public ChecksumAlgorithm<uint32_t> {
 
 public:
+  using ChecksumAlgorithm::operator();
   uint32_t operator()(const std::vector<uint8_t>& input) const override;
-  uint32_t operator()(const std::string& input) const override;
 };
 
 /// Class that implements the 16 bit long BSD sum
 class BSDSum final : public ChecksumAlgorithm<uint16_t> {
 
 public:
+  using ChecksumAlgorithm::operator();
   uint16_t operator()(const std::vector<uint8_t>& input) const override;
-  uint16_t operator()(const std::string& input) const override;
 };
 
 /// Class that implements the XOR8 checksum
 class XOR8 final : public ChecksumAlgorithm<uint8_t> {
 
 public:
+  using ChecksumAlgorithm::operator();
   uint8_t operator()(const std::vector<uint8_t>& input) const override;
-  uint8_t operator()(const std::string& input) const override;
 };
 
 
