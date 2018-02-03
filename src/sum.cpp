@@ -24,15 +24,41 @@
  * @author      Kevin Kirchner
  * @date        2018
  * @copyright   MIT License
- * @brief       Implements the BSD sum checksum algorithms
+ * @brief       Implements checksum algorithms
  *
- * This source file implements the BSD sum checksum algorithms declared in the
- * main header.
+ * This source file implements checksum algorithms declared in the main header.
  */
 
 #include <libchecksum/checksums.h>
 
 namespace libchecksum {
+
+uint32_t Adler32::operator()(const std::vector<uint8_t>& input) const {
+  uint32_t s1 {1}, s2 {0};
+  for (const auto& element : input) {
+    s1 = (s1 + element) % 65521;
+    s2 = (s2 + s1) % 65521;
+  }
+  return (s2 << 16) | s1;
+}
+
+uint16_t Fletcher16::operator()(const std::vector<uint8_t>& input) const {
+  uint16_t s1 {0}, s2 {0};
+  for (const auto& element : input) {
+    s1 = static_cast<uint16_t>((s1 + element) % 255);
+    s2 = static_cast<uint16_t>((s2 + s1) % 255);
+  }
+  return static_cast<uint16_t>((s2 << 8) | s1);
+}
+
+uint32_t Fletcher32::operator()(const std::vector<uint8_t>& input) const {
+  uint32_t s1 {0}, s2 {0};
+  for (const auto& element : input) {
+    s1 = (s1 + element) % 65535;
+    s2 = (s2 + s1) % 65535;
+  }
+  return (s2 << 16) | s1;
+}
 
 uint8_t Sum8::operator()(const std::vector<uint8_t>& input) const {
   uint8_t checksum {0};
