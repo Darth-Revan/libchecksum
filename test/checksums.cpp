@@ -270,3 +270,35 @@ TEST_CASE("BSDSum") {
     REQUIRE(sum(TestVector[8]) == 0);
   }
 }
+
+TEST_CASE("XOR8") {
+  XOR8 sum;
+
+  SECTION("string") {
+    const std::string str {"abcdef"};
+    const std::string expectedHex {"7"};
+    const uint8_t expected {7};
+    REQUIRE(sum.getHex(str) == expectedHex);
+    REQUIRE(sum(str) == expected);
+  }
+
+  SECTION("bytes") {
+    const std::vector<uint8_t> vec {1, 2, 3, 4, 42, 81, 34, 12, 76, 34, 23};
+    const std::string expectedHex {"28"};
+    const uint8_t expected {40};
+    REQUIRE(sum.getHex(vec) == expectedHex);
+    REQUIRE(sum(vec) == expected);
+  }
+
+  SECTION("testvector") {
+    REQUIRE(sum(TestVector[0]) == 69);
+    REQUIRE(sum(TestVector[1]) == 43);
+    REQUIRE(sum(TestVector[2]) == 38);
+    REQUIRE(sum(TestVector[3]) == 15);
+    REQUIRE(sum(TestVector[4]) == 66);
+    REQUIRE(sum(TestVector[5]) == 109);
+    REQUIRE(sum(TestVector[6]) == 23);
+    REQUIRE(sum(TestVector[7]) == 101);
+    REQUIRE(sum(TestVector[8]) == 0);
+  }
+}

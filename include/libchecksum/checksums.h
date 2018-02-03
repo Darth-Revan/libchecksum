@@ -92,6 +92,14 @@ public:
   uint16_t operator()(const std::string& input) const override;
 };
 
+/// Class that implements the XOR8 checksum
+class XOR8 final : public ChecksumAlgorithm<uint8_t> {
+
+public:
+  uint8_t operator()(const std::vector<uint8_t>& input) const override;
+  uint8_t operator()(const std::string& input) const override;
+};
+
 
 } // namespace libchecksum
 

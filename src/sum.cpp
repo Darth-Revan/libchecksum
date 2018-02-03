@@ -84,4 +84,16 @@ uint16_t BSDSum::operator()(const std::vector<uint8_t>& input) const {
   return checksum;
 }
 
+uint8_t XOR8::operator()(const std::string& input) const {
+  return this->operator()(std::vector<uint8_t> {input.begin(), input.end()});
+}
+
+uint8_t XOR8::operator()(const std::vector<uint8_t>& input) const {
+  uint8_t checksum {0};
+  for (const auto& byte : input) {
+    checksum ^= byte & 0xFF;
+  }
+  return checksum;
+}
+
 }
