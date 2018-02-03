@@ -30,7 +30,7 @@
  * main header.
  */
 
-#include <libchecksum/checksums.h>
+#include <libchecksum/crc.h>
 
 namespace libchecksum {
 
