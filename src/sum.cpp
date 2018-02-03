@@ -76,4 +76,13 @@ uint8_t XOR8::operator()(const std::vector<uint8_t>& input) const {
   return checksum;
 }
 
+uint32_t SYSV::operator()(const std::vector<uint8_t>& input) const {
+  uint32_t s {0}, r {0};
+  for (const auto& byte : input) {
+    s += byte;
+  }
+  r = (s & 0xFFFF) + ((s & 0xFFFFFFFF) >> 16);
+  return (r & 0xFFFF) + (r >> 16);
+}
+
 }

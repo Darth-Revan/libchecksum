@@ -302,3 +302,35 @@ TEST_CASE("XOR8") {
     REQUIRE(sum(TestVector[8]) == 0);
   }
 }
+
+TEST_CASE("SYSV") {
+  SYSV sum;
+
+  SECTION("string") {
+    const std::string str {"abcdef"};
+    const std::string expectedHex {"255"};
+    const uint32_t expected {597};
+    REQUIRE(sum.getHex(str) == expectedHex);
+    REQUIRE(sum(str) == expected);
+  }
+
+  SECTION("bytes") {
+    const std::vector<uint8_t> vec {1, 2, 3, 4, 42, 81, 34, 12, 76, 34, 23};
+    const std::string expectedHex {"138"};
+    const uint32_t expected {312};
+    REQUIRE(sum.getHex(vec) == expectedHex);
+    REQUIRE(sum(vec) == expected);
+  }
+
+  SECTION("testvector") {
+    REQUIRE(sum(TestVector[0]) == 2563);
+    REQUIRE(sum(TestVector[1]) == 775);
+    REQUIRE(sum(TestVector[2]) == 504);
+    REQUIRE(sum(TestVector[3]) == 733);
+    REQUIRE(sum(TestVector[4]) == 1936);
+    REQUIRE(sum(TestVector[5]) == 1737);
+    REQUIRE(sum(TestVector[6]) == 1327);
+    REQUIRE(sum(TestVector[7]) == 153);
+    REQUIRE(sum(TestVector[8]) == 0);
+  }
+}

@@ -100,6 +100,14 @@ public:
   uint8_t operator()(const std::vector<uint8_t>& input) const override;
 };
 
+/// Class that implements the SYSV checksum
+class SYSV final : public ChecksumAlgorithm<uint32_t> {
+
+public:
+  using ChecksumAlgorithm::operator();
+  uint32_t operator()(const std::vector<uint8_t>& input) const override;
+};
+
 
 } // namespace libchecksum
 
